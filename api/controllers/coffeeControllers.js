@@ -14,6 +14,9 @@ exports.getAllCoffees = async (req, res) => {
     return res.status(404).json({ message: "No coffees found" });
   }
 
+  const selecteds = "_id,name,category,rating,image,price";
+  coffees = await Coffee.find().select(selecteds.replaceAll(",", " "));
+
   res.status(200).json(coffees);
 };
 
@@ -61,7 +64,7 @@ exports.updateCoffeeFromOrders = async (req, res) => {
   const coffee = await Order.findByIdAndUpdate(
     req.params.id,
     { $set: req.body },
-    { new: true },
+    { new: true }
   );
 
   if (!coffee) {

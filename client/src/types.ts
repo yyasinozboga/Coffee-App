@@ -13,3 +13,30 @@ export type RootTabParamList = {
   [screens.Orders]: undefined;
   [screens.Notifications]: undefined;
 };
+
+export type CoffeeType = {
+  rating: {
+    average: number;
+    count: number;
+  };
+  _id: string;
+  name: string;
+  category: string;
+  image: string;
+  price: number;
+};
+
+export type CoffeeDetailType = {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  size: string[];
+  rating: {
+    average: number;
+    count: number;
+  };
+  isHot: string;
+  description: string;
+  image: string;
+};

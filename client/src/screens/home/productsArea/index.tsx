@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Categories from './Categories';
 import Products from './Products';
@@ -20,14 +20,16 @@ const styles = StyleSheet.create({
   productsArea: {
     position: 'absolute',
     left: 0,
-    top: 375,
     width: 375,
+    top: 375,
+    height: '100%',
   },
 
   container: {
-    width: 327,
     position: 'absolute',
+    width: 327,
     left: 24,
     gap: 16,
+    height: '100%',
   },
 });

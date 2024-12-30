@@ -34,20 +34,22 @@ const Categories = () => {
   ];
 
   return (
-    <FlatList
-      data={categories}
-      contentContainerStyle={{gap: 16}}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      renderItem={({item}) => (
-        <CreateCategoryItem
-          setSelected={setSelected}
-          selected={selected}
-          {...item}
-        />
-      )}
-      keyExtractor={item => item.value}
-    />
+    <View>
+      <FlatList
+        data={categories}
+        contentContainerStyle={{gap: 16}}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        renderItem={({item}) => (
+          <CreateCategoryItem
+            setSelected={setSelected}
+            selected={selected}
+            {...item}
+          />
+        )}
+        keyExtractor={item => item.value}
+      />
+    </View>
   );
 };
 
