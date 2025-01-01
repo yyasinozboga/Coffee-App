@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Svg, {Rect, Path} from 'react-native-svg';
-const SVGComponent = (props: any) => (
+const MinusCricle = (props: any) => (
   <Svg
     width={24}
     height={24}
@@ -19,4 +19,4 @@ const SVGComponent = (props: any) => (
     />
   </Svg>
 );
-export default SVGComponent;
+export default MinusCricle;

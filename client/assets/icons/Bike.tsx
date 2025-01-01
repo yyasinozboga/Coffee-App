@@ -1,35 +1,35 @@
 import * as React from 'react';
 import Svg, {Mask, Rect, G, Defs, Pattern, Use, Image} from 'react-native-svg';
-const SVGComponent = (props: any) => (
+const Bike = (props: any) => (
   <Svg
-    width={32}
-    height={32}
     viewBox="0 0 32 32"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    {...props}>
+    {...props}
+    style={{
+      left: -5,
+      top: 5,
+    }}
+    transform="rotate(180)">
     <Mask
       id="mask0_418_980"
       style={{
         maskType: 'alpha',
       }}
       maskUnits="userSpaceOnUse"
-      x={6}
-      y={6}
-      width={20}
-      height={20}>
+      y={0}>
       <Rect
-        width={20}
-        height={20}
+        width={70}
+        height={70}
         transform="matrix(-1 0 0 1 26 6)"
         fill="url(#pattern0_418_980)"
       />
     </Mask>
     <G mask="url(#mask0_418_980)">
       <Rect
-        width={20}
-        height={20}
+        width={32}
+        height={32}
         transform="matrix(-1 0 0 1 26 6)"
         fill="#C67C4E"
       />
@@ -38,8 +38,8 @@ const SVGComponent = (props: any) => (
       <Pattern
         id="pattern0_418_980"
         patternContentUnits="objectBoundingBox"
-        width={1}
-        height={1}>
+        width={32}
+        height={32}>
         <Use xlinkHref="#image0_418_980" transform="scale(0.00195312)" />
       </Pattern>
       <Image
@@ -51,4 +51,4 @@ const SVGComponent = (props: any) => (
     </Defs>
   </Svg>
 );
-export default SVGComponent;
+export default Bike;

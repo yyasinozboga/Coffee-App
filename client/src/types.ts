@@ -5,6 +5,7 @@ export type RootStackParamList = {
   [screens.Main]: undefined;
   [screens.Detail]: {id: string};
   [screens.Delivery]: undefined;
+  [screens.Orders]: undefined;
 };
 
 export type RootTabParamList = {
@@ -27,7 +28,7 @@ export type CoffeeType = {
 };
 
 export type CoffeeDetailType = {
-  id: string;
+  _id: string;
   name: string;
   category: string;
   price: number;
@@ -38,5 +39,15 @@ export type CoffeeDetailType = {
   };
   isHot: string;
   description: string;
+  image: string;
+};
+
+export type OrderType = {
+  _id?: string;
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  amount: number;
   image: string;
 };

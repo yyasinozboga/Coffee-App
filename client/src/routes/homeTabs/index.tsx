@@ -7,22 +7,50 @@ import Likes from '../../screens/likes';
 import Orders from '../../screens/orders';
 import Notifications from '../../screens/notifications';
 import {RootTabParamList} from '../../types';
+import HomeIcon from '../../../assets/icons/Home';
+import Heart from '../../../assets/icons/Heart';
+import Bag from '../../../assets/icons/Bag';
+import Notification from '../../../assets/icons/Notification';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const HomeTabs = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: '#C67C4E',
+        tabBarInactiveTintColor: '#A2A2A2',
+      }}>
       <Tab.Screen
         name={screens.Home}
         component={Home}
         options={{
           headerShown: false,
+          tabBarIcon: ({color}) => <HomeIcon fill={color} />,
         }}
       />
-      <Tab.Screen name={screens.Likes} component={Likes} />
-      <Tab.Screen name={screens.Orders} component={Orders} />
-      <Tab.Screen name={screens.Notifications} component={Notifications} />
+      <Tab.Screen
+        name={screens.Likes}
+        component={Likes}
+        options={{
+          tabBarIcon: ({color}) => <Heart fill={color} />,
+        }}
+      />
+      <Tab.Screen
+        name={screens.Orders}
+        component={Orders}
+        options={{
+          tabBarIcon: ({color}) => <Bag fill={color} />,
+        }}
+      />
+      <Tab.Screen
+        name={screens.Notifications}
+        component={Notifications}
+        options={{
+          tabBarIcon: ({color}) => <Notification fill={color} />,
+        }}
+      />
     </Tab.Navigator>
   );
 };

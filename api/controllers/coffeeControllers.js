@@ -4,18 +4,19 @@ const Order = require("../modals/orderModal");
 exports.getAllCoffees = async (req, res) => {
   let coffees;
 
+  const selecteds = "_id,name,category,rating,image,price";
+
   if (req.query.category) {
-    coffees = await Coffee.find({ category: req.query.category });
+    coffees = await Coffee.find({ category: req.query.category }).select(
+      selecteds.replaceAll(",", " ")
+    );
   } else {
-    coffees = await Coffee.find();
+    coffees = await Coffee.find().select(selecteds.replaceAll(",", " "));
   }
 
   if (!coffees) {
     return res.status(404).json({ message: "No coffees found" });
   }
-
-  const selecteds = "_id,name,category,rating,image,price";
-  coffees = await Coffee.find().select(selecteds.replaceAll(",", " "));
 
   res.status(200).json(coffees);
 };

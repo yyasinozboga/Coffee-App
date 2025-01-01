@@ -1,25 +1,35 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {CoffeeType} from '../../types';
+import {CoffeeType, RootStackParamList} from '../../types';
 import Plus from '../../../assets/icons/Plus';
 import LinearGradient from 'react-native-linear-gradient';
 import Star from '../../../assets/icons/Star';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {screens} from '../../utils/constants';
+
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 const Card = ({coffee}: {coffee: CoffeeType}) => {
   const {_id, category, image, name, rating, price} = coffee;
 
+  const navigation = useNavigation<NavigationProps>();
+
   return (
-    <Pressable style={styles.card}>
+    <Pressable
+      style={styles.card}
+      onPress={() => navigation.navigate(screens.Detail, {id: _id})}>
       <View style={styles.imageContainer}>
         <LinearGradient
-          colors={['#111111', '#313131']}
-          locations={[0, 1]}
+          colors={['rgba(17, 17, 17, 0.3)', 'rgba(49, 49, 49, 0.3)']}
+          locations={[0, 1]} // %0'da ilk renk, %100'de ikinci renk
           start={{x: 0, y: 0}}
           end={{x: 1, y: 0}}
           style={styles.rating}>
           <Star width={12} height={12} />
           <Text style={styles.avarage}>{rating.average}</Text>
         </LinearGradient>
+
         <Image source={{uri: image}} style={styles.image} />
       </View>
 

@@ -12,6 +12,7 @@ import {colors, screens} from '../../utils/constants';
 import LinearGradient from 'react-native-linear-gradient';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../types';
+import normalize from '../../utils/helper';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'OnBoarding'>;
 
@@ -55,18 +56,18 @@ export default OnBoarding;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    gap: 20,
-    width: 327,
+    gap: normalize(20),
+    width: normalize(327),
     marginHorizontal: 'auto',
-    paddingTop: 10,
+    paddingTop: normalize(10),
   },
 
   title: {
-    width: 327,
+    width: normalize(327),
     color: 'white',
     fontWeight: '600',
-    fontSize: 32,
-    lineHeight: 48,
+    fontSize: normalize(32),
+    lineHeight: normalize(48),
     letterSpacing: 0.5,
     fontFamily: 'Sora',
     textAlign: 'center',
@@ -74,29 +75,31 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    width: 327,
+    width: normalize(327),
     marginHorizontal: 'auto',
     textAlign: 'center',
     color: colors.gray,
     fontWeight: '400',
-    fontSize: 14,
+    fontSize: normalize(14),
     letterSpacing: 1,
     fontFamily: 'Sora',
   },
 
   button: {
-    width: 327,
-    height: 56,
+    width: normalize(327),
+    height: normalize(56),
     marginHorizontal: 'auto',
     backgroundColor: colors.brown,
-    paddingVertical: 16,
-    paddingHorizontal: 20,
-    borderRadius: 16,
+    paddingVertical: normalize(16),
+    paddingHorizontal: normalize(20),
+    borderRadius: normalize(16),
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   buttonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: normalize(16),
     fontFamily: 'Sora',
     fontWeight: '500',
     textAlign: 'center',
