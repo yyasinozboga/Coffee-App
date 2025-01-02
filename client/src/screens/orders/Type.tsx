@@ -21,13 +21,13 @@ const Type = () => {
     if (type === 'deliver') {
       Animated.timing(typeAnim, {
         toValue: normalize(327 - 4 - 153),
-        duration: 500,
+        duration: 300,
         useNativeDriver: false,
       }).start();
     } else {
       Animated.timing(typeAnim, {
         toValue: normalize(4),
-        duration: 500,
+        duration: 300,
         useNativeDriver: false,
       }).start();
     }
@@ -54,8 +54,6 @@ const styles = StyleSheet.create({
   container: {
     width: normalize(327),
     height: normalize(43),
-    position: 'absolute',
-    top: normalize(132),
     left: normalize(24),
     backgroundColor: '#EDEDED',
     borderRadius: normalize(12),

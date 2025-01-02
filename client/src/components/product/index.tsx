@@ -5,16 +5,20 @@ import {OrderType, RootStackParamList} from '../../types';
 import MinusCricle from '../../../assets/icons/MinusCricle';
 import PlusCricle from '../../../assets/icons/PlusCricle';
 import {useMutation, useQueryClient} from '@tanstack/react-query';
-import {updateProductFromOrders} from '../../api/verbs';
+import {
+  deleteProductFromOrders,
+  updateProductFromOrders,
+} from '../../api/verbs';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {screens} from '../../utils/constants';
+import Trash from '../../../assets/icons/Trash';
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 const Product = ({coffee}: {coffee: OrderType}) => {
   const navigation = useNavigation<NavigationProps>();
-  const {id, image, name, category, amount} = coffee;
+  const {_id, id, image, name, category, amount} = coffee;
   const queryClient = useQueryClient();
 
   const updateMutation = useMutation({
@@ -28,9 +32,24 @@ const Product = ({coffee}: {coffee: OrderType}) => {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationKey: ['orders'],
+    mutationFn: (id: string) => deleteProductFromOrders(id),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['orders'],
+      });
+    },
+  });
+
   const handlePress = (type: string) => {
     if (type === 'decrease') {
-      updateMutation.mutate({...coffee, amount: coffee.amount - 1});
+      if (amount === 1) {
+        deleteMutation.mutate(_id as string);
+      } else {
+        updateMutation.mutate({...coffee, amount: coffee.amount - 1});
+      }
     } else {
       updateMutation.mutate({...coffee, amount: coffee.amount + 1});
     }
@@ -43,18 +62,24 @@ const Product = ({coffee}: {coffee: OrderType}) => {
       <View style={styles.detail}>
         <Image source={{uri: image}} style={styles.image} />
         <View style={styles.detailRight}>
-          <Text style={styles.name}>{name}</Text>
+          <Text numberOfLines={1} style={styles.name}>
+            {name}
+          </Text>
           <Text style={styles.category}>{category}</Text>
         </View>
       </View>
 
       <View style={styles.addItem}>
         <Pressable onPress={() => handlePress('decrease')}>
-          <MinusCricle />
+          {amount === 1 ? (
+            <Trash width={normalize(24)} height={normalize(24)} />
+          ) : (
+            <MinusCricle width={normalize(24)} height={normalize(24)} />
+          )}
         </Pressable>
         <Text style={styles.amount}>{amount}</Text>
         <Pressable onPress={() => handlePress('increase')}>
-          <PlusCricle />
+          <PlusCricle width={normalize(24)} height={normalize(24)} />
         </Pressable>
       </View>
     </Pressable>

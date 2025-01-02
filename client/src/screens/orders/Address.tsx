@@ -28,8 +28,6 @@ const Address = () => {
           <Text style={styles.editText}>Add Note</Text>
         </Pressable>
       </View>
-
-      <View style={styles.line} />
     </View>
   );
 };
@@ -40,8 +38,6 @@ const styles = StyleSheet.create({
   container: {
     width: normalize(315),
     height: normalize(121),
-    position: 'absolute',
-    top: normalize(199),
     left: normalize(24),
     gap: normalize(16),
     justifyContent: 'flex-start',
@@ -106,14 +102,5 @@ const styles = StyleSheet.create({
     fontSize: normalize(12),
     fontWeight: 'regular',
     color: '#313131',
-  },
-
-  line: {
-    width: normalize(295),
-    position: 'absolute',
-    left: normalize(40),
-    top: normalize(336),
-    backgroundColor: '#E3E3E3',
-    height: 1,
   },
 });

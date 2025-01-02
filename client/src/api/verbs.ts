@@ -20,3 +20,6 @@ export const updateProductFromOrders = (
   product: OrderType,
 ): Promise<OrderType> =>
   api.patch(`${ORDERS_URL}/${product._id}`, product).then(res => res.data);
+
+export const deleteProductFromOrders = (id: string) =>
+  api.delete(`${ORDERS_URL}/${id}`);
