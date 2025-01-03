@@ -14,7 +14,10 @@ const colors = {
   lightBrown: '#EDD6C8',
   black: '#313131',
   gray: '#E3E3E3',
-  white: '#F9F2ED',
+  normal_active_black: '#242424',
+  lighter: '#A2A2A2',
+  white: '#FFFFFF',
+  normal_active_white: '#D8D8D8',
 };
 
 export {screens, colors};

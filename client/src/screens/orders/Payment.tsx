@@ -1,16 +1,28 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {OrderType} from '../../types';
+import {OrderType, RootStackParamList} from '../../types';
 import normalize from '../../utils/helper';
 import Wallet from '../../../assets/icons/Wallet';
+import Button from '../../components/button';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {screens} from '../../utils/constants';
+import BottomContainer from '../../components/bottomContainer';
+
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 const Payment = ({data}: {data: OrderType[]}) => {
+  const navigation = useNavigation<NavigationProps>();
+
   const total = data
     .reduce((acc, item) => acc + item.amount * item.price, 0)
     .toFixed(2);
 
   return (
-    <View style={styles.container}>
+    <BottomContainer
+      gap={normalize(8)}
+      direction="column"
+      height={normalize(165)}>
       <View style={styles.paymentTop}>
         <View style={styles.wallet}>
           <Wallet />
@@ -21,10 +33,12 @@ const Payment = ({data}: {data: OrderType[]}) => {
         </View>
       </View>
 
-      <Pressable style={styles.button}>
-        <Text style={styles.buttonText}>Order</Text>
-      </Pressable>
-    </View>
+      <Button
+        text="Order"
+        width={normalize(327)}
+        onPress={() => navigation.navigate(screens.Delivery)}
+      />
+    </BottomContainer>
   );
 };
 

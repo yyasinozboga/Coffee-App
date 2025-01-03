@@ -41,6 +41,10 @@ const HomeTabs = () => {
         name={screens.Orders}
         component={Orders}
         options={{
+          headerShown: false,
+          tabBarStyle: {
+            display: 'none',
+          },
           tabBarIcon: ({color}) => <Bag fill={color} />,
         }}
       />

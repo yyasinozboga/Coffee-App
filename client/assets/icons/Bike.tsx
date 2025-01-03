@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Svg, {Mask, Rect, G, Defs, Pattern, Use, Image} from 'react-native-svg';
+import normalize from '../../src/utils/helper';
 const Bike = (props: any) => (
   <Svg
     viewBox="0 0 32 32"
@@ -8,17 +9,21 @@ const Bike = (props: any) => (
     xmlnsXlink="http://www.w3.org/1999/xlink"
     {...props}
     style={{
-      left: -5,
-      top: 5,
-    }}
-    transform="rotate(180)">
+      top: props.y ? '60%' : props.bottom ? '40%' : '50%',
+      left: props.y ? '40%' : props.bottom ? '25%' : '20%',
+      transform: [
+        {translateX: -normalize(12)},
+        {translateY: -normalize(12)},
+        {scale: -1},
+      ],
+    }}>
     <Mask
       id="mask0_418_980"
       style={{
         maskType: 'alpha',
       }}
       maskUnits="userSpaceOnUse"
-      y={0}>
+      y={props.y || 0}>
       <Rect
         width={70}
         height={70}
@@ -28,8 +33,8 @@ const Bike = (props: any) => (
     </Mask>
     <G mask="url(#mask0_418_980)">
       <Rect
-        width={32}
-        height={32}
+        width={70}
+        height={70}
         transform="matrix(-1 0 0 1 26 6)"
         fill="#C67C4E"
       />
@@ -38,8 +43,8 @@ const Bike = (props: any) => (
       <Pattern
         id="pattern0_418_980"
         patternContentUnits="objectBoundingBox"
-        width={32}
-        height={32}>
+        width={70}
+        height={70}>
         <Use xlinkHref="#image0_418_980" transform="scale(0.00195312)" />
       </Pattern>
       <Image

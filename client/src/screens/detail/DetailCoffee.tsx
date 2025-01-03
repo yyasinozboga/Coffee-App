@@ -19,7 +19,9 @@ const DetailCoffee = ({name, isHot, count, avarage}: Props) => {
       <View style={styles.detail}>
         <View style={styles.detailLeft}>
           <View style={styles.text}>
-            <Text style={styles.name}>{name}</Text>
+            <Text numberOfLines={2} style={styles.name}>
+              {name}
+            </Text>
             <Text style={styles.isHot}>{isHot}</Text>
           </View>
           <View style={styles.rating}>

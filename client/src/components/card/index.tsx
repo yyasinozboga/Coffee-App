@@ -1,19 +1,75 @@
 import {Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {CoffeeType, RootStackParamList} from '../../types';
+import {CoffeeType, OrderType, RootStackParamList} from '../../types';
 import Plus from '../../../assets/icons/Plus';
 import LinearGradient from 'react-native-linear-gradient';
 import Star from '../../../assets/icons/Star';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {screens} from '../../utils/constants';
+import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
+import {
+  addProductToOrders,
+  getOrders,
+  updateProductFromOrders,
+} from '../../api/verbs';
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 const Card = ({coffee}: {coffee: CoffeeType}) => {
   const {_id, category, image, name, rating, price} = coffee;
 
+  const queryClient = useQueryClient();
+
+  const addMutation = useMutation({
+    mutationKey: ['orders'],
+    mutationFn: (product: OrderType) => addProductToOrders(product),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['orders'],
+      });
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationKey: ['orders'],
+    mutationFn: (product: OrderType) => updateProductFromOrders(product),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['orders'],
+      });
+    },
+  });
+
+  const {data} = useQuery<OrderType[]>({
+    queryKey: ['orders'],
+    queryFn: () => getOrders(),
+  });
+
   const navigation = useNavigation<NavigationProps>();
+
+  const createOrder = () => {
+    const order: OrderType = {
+      id: _id,
+      name,
+      category,
+      price,
+      amount: 1,
+      image,
+    };
+    if (data) {
+      const found = data.find(item => item.id === _id);
+
+      if (found) {
+        const newOrder: OrderType = {...found, amount: found.amount + 1};
+        updateMutation.mutate(newOrder);
+      } else {
+        addMutation.mutate(order);
+      }
+    }
+  };
 
   return (
     <Pressable
@@ -43,7 +99,7 @@ const Card = ({coffee}: {coffee: CoffeeType}) => {
 
         <View style={styles.buttons}>
           <Text style={styles.price}>${price}</Text>
-          <Pressable>
+          <Pressable onPress={createOrder}>
             <Plus />
           </Pressable>
         </View>

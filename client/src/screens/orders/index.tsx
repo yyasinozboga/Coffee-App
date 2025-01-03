@@ -5,8 +5,9 @@ import {
   FlatList,
   StyleSheet,
   ScrollView,
+  StatusBar,
 } from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import Header from '../../components/header';
 import normalize from '../../utils/helper';
 import Type from './Type';
@@ -20,12 +21,19 @@ import {OrderType} from '../../types';
 import Discount from './Discount';
 import PaymentSummary from './PaymentSummary';
 import Payment from './Payment';
+import {useFocusEffect} from '@react-navigation/native';
 
 const Orders = () => {
   const {isPending, error, data} = useQuery<OrderType[]>({
     queryKey: ['orders'],
     queryFn: () => getOrders(),
   });
+
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle('dark-content');
+    }, []),
+  );
 
   return (
     <SafeAreaView style={{flex: 1}}>

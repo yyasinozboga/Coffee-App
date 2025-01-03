@@ -1,5 +1,5 @@
 import {View, Text, SafeAreaView, StatusBar, Image} from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import Header from '../../components/header';
 import Heart from '../../../assets/icons/Heart';
 import {useQuery} from '@tanstack/react-query';
@@ -13,8 +13,9 @@ import CoffeeImage from './Image';
 import DetailCoffee from './DetailCoffee';
 import Description from './Description';
 import Size from './Size';
-import Button from './Button';
+import Bottom from './Bottom';
 import normalize from '../../utils/helper';
+import {useFocusEffect} from '@react-navigation/native';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Detail'>;
 
@@ -28,7 +29,11 @@ const Detail = ({route}: NavigationProps) => {
     queryFn: () => getCoffee(route.params.id),
   });
 
-  StatusBar.setBarStyle('dark-content');
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle('dark-content');
+    }, []),
+  );
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -54,7 +59,7 @@ const Detail = ({route}: NavigationProps) => {
           />
           <Description description={data.description} />
           <Size size={data.size} />
-          <Button coffee={data} />
+          <Bottom coffee={data} />
         </>
       )}
     </SafeAreaView>

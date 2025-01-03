@@ -6,15 +6,13 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {CoffeeDetailType, OrderType, RootStackParamList} from '../../types';
 import {screens} from '../../utils/constants';
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import {
-  addProductToOrders,
-  getOrders,
-  updateProductFromOrders,
-} from '../../api/verbs';
+import {addProductToOrders, getOrders} from '../../api/verbs';
+import Button from '../../components/button';
+import BottomContainer from '../../components/bottomContainer';
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
-const Button = ({coffee}: {coffee: CoffeeDetailType}) => {
+const Bottom = ({coffee}: {coffee: CoffeeDetailType}) => {
   const {_id, price, name, image, category} = coffee;
   const queryClient = useQueryClient();
 
@@ -22,17 +20,6 @@ const Button = ({coffee}: {coffee: CoffeeDetailType}) => {
   const addMutation = useMutation({
     mutationKey: ['orders'],
     mutationFn: (product: OrderType) => addProductToOrders(product),
-
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ['orders'],
-      });
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationKey: ['orders'],
-    mutationFn: (product: OrderType) => updateProductFromOrders(product),
 
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -58,10 +45,7 @@ const Button = ({coffee}: {coffee: CoffeeDetailType}) => {
     if (data) {
       const found = data.find(item => item.id === _id);
 
-      if (found) {
-        const newOrder: OrderType = {...found, amount: found.amount + 1};
-        updateMutation.mutate(newOrder);
-      } else {
+      if (!found) {
         addMutation.mutate(order);
       }
 
@@ -70,40 +54,23 @@ const Button = ({coffee}: {coffee: CoffeeDetailType}) => {
   };
 
   return (
-    <View style={styles.button}>
+    <BottomContainer
+      direction="row"
+      gap={normalize(34)}
+      height={normalize(118)}>
       <View style={styles.buttonLeft}>
         <Text style={styles.title}>Price</Text>
         <Text style={styles.price}>${price}</Text>
       </View>
 
-      <Pressable style={styles.buttonRight} onPress={createOrder}>
-        <Text style={styles.buttonText}>Buy Now</Text>
-      </Pressable>
-    </View>
+      <Button onPress={createOrder} text="Buy Now" width={normalize(217)} />
+    </BottomContainer>
   );
 };
 
-export default Button;
+export default Bottom;
 
 const styles = StyleSheet.create({
-  button: {
-    width: normalize(375),
-    height: normalize(118),
-    flexDirection: 'row',
-    gap: normalize(34),
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    paddingHorizontal: normalize(24),
-    paddingTop: normalize(16),
-    paddingBottom: normalize(46),
-    borderTopStartRadius: normalize(20),
-    borderTopEndRadius: normalize(20),
-    position: 'absolute',
-    left: 0,
-    top: normalize(694),
-    backgroundColor: 'white',
-  },
-
   buttonLeft: {
     gap: normalize(4),
     width: normalize(76),

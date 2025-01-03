@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {
   Image,
   View,
   Text,
   StatusBar,
-  Pressable,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
@@ -13,11 +12,17 @@ import LinearGradient from 'react-native-linear-gradient';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../types';
 import normalize from '../../utils/helper';
+import Button from '../../components/button';
+import {useFocusEffect} from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'OnBoarding'>;
 
 const OnBoarding = ({navigation}: Props) => {
-  StatusBar.setBarStyle('light-content');
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle('light-content');
+    }, []),
+  );
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#050505'}}>
@@ -40,11 +45,11 @@ const OnBoarding = ({navigation}: Props) => {
             Welcome to our cozy coffee corner, where every cup is a delightful
             for you.
           </Text>
-          <Pressable
-            style={styles.button}
-            onPress={() => navigation.navigate(screens.Main)}>
-            <Text style={styles.buttonText}>Get Started</Text>
-          </Pressable>
+          <Button
+            onPress={() => navigation.navigate(screens.Main)}
+            width={normalize(327)}
+            text="Get Started"
+          />
         </View>
       </LinearGradient>
     </SafeAreaView>

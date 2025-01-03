@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Svg, {G, Rect, Path, Defs} from 'react-native-svg';
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
-const SVGComponent = (props: any) => (
+const GPS = (props: any) => (
   <Svg
     width={88}
     height={84}
@@ -16,7 +16,7 @@ const SVGComponent = (props: any) => (
         width={44}
         height={44}
         rx={8}
-        fill="white"
+        fill="#EDEDED"
         shapeRendering="crispEdges"
       />
       <Path
@@ -65,4 +65,4 @@ const SVGComponent = (props: any) => (
     <Defs></Defs>
   </Svg>
 );
-export default SVGComponent;
+export default GPS;
